@@ -98,7 +98,7 @@
 
 <style>
   .container {
-    background-color: black;
+    background-color: slate;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     padding: 20px;
