@@ -1,19 +1,9 @@
 <script>
   import { onMount } from 'svelte';
-  import TronWeb from 'tronweb';
 
   let searchValue = '';
   let transactionInfo = null;
   let loading = false;
-
-  const HttpProvider = 'https://api.trongrid.io';
-  const privateKey = import.meta.env.VITE_APP_PRIVATE_KEY; // Vite injects env variables with "VITE_" prefix
-
-  const fullNode = new TronWeb.providers.HttpProvider(HttpProvider);
-  const solidityNode = new TronWeb.providers.HttpProvider(HttpProvider);
-  const eventServer = new TronWeb.providers.HttpProvider(HttpProvider);
-
-  const tronWeb = new TronWeb(fullNode, solidityNode, eventServer, privateKey);
 
   const fetchTransactionInfo = async () => {
     try {
@@ -26,12 +16,11 @@
         return;
       }
 
-      console.log('Fetching transaction for:', searchValue.trim()); // Add logging
-      const transaction = await tronWeb.trx.getTransaction(searchValue.trim());
-      console.log('Fetched transaction:', transaction); // Add logging
+      const response = await fetch(`https://api.trongrid.io/v1/transactions/${searchValue.trim()}`);
+      const transaction = await response.json();
 
       if (transaction) {
-        // ... rest of your code
+        transactionInfo = transaction;
       }
 
       loading = false;
@@ -114,3 +103,4 @@
     color: white;
   }
 </style>
+

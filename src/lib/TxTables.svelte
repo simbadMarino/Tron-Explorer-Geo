@@ -1,4 +1,5 @@
 <script>
+///// src/lib TxTables.svelte
   import { onMount, onDestroy } from 'svelte';
   import TronWeb from 'tronweb';
 

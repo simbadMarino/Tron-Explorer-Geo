@@ -1,4 +1,5 @@
 <script>
+///src/routes +page.svelte
   import TxTables from '../lib/TxTables.svelte';
   import TxTables2 from '../lib/TxTables2.svelte';
   import TxInfo from '../lib/TxInfo.svelte'; // Import TxInfo component

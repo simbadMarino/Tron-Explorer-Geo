@@ -38,6 +38,7 @@
 	"type": "module",
 	"dependencies": {
 		"buffer": "^6.0.3",
+		"cors": "^2.8.5",
 		"tronweb": "^5.3.0"
 	}
 }
