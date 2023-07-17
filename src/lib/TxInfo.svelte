@@ -2,27 +2,30 @@
   let transactionInfo = null;
   let loading = false;
   let searchValue = '';
+  let showDetails = false;
 
   function handleSubmit() {
-  loading = true;
+    loading = true;
+    showDetails = false;
 
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      'TRON-PRO-API-KEY': '7a11a8ca-bbbf-43d9-a340-272301ad396b' // Replace with your actual API key
-    }
-  };
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        'TRON-PRO-API-KEY': '7a11a8ca-bbbf-43d9-a340-272301ad396b' // Replace with your actual API key
+      }
+    };
 
-  fetch(`https://api.trongrid.io/v1/accounts/${searchValue}/transactions`, options)
-    .then(response => response.json())
-    .then(response => {
-      transactionInfo = response.data;
-      loading = false;
-    })
-    .catch(err => console.error(err));
-}
-
+    fetch(`https://api.trongrid.io/v1/accounts/${searchValue}/transactions`, options)
+      .then(response => response.json())
+      .then(response => {
+        transactionInfo = response.data.slice(0, 1);
+        loading = false;
+        showDetails = true;
+        console.log(transactionInfo);
+      })
+      .catch(err => console.error(err));
+  }
 </script>
 
 <div class="container">
@@ -42,46 +45,51 @@
   {:else if transactionInfo && transactionInfo.length > 0}
     <div class="mt-4">
       <h3 class="text-lg font-bold mb-2">Transaction Details</h3>
-      <dl class="grid grid-cols-2 gap-2">
+      <div>
         {#each transactionInfo as transaction}
-          <div>
-            <dt>Transaction ID:</dt>
-            <dd>{transaction.txID}</dd>
+          <div class="flex mb-2">
+            <div class="font-bold">Transaction ID:</div>
+            <div class="ml-2">{transaction.txID}</div>
           </div>
-          <div>
-            <dt>Owner Address:</dt>
-            <dd>{transaction.ownerAddress}</dd>
+          <div class="flex mb-2">
+            <div class="font-bold">Owner Address:</div>
+            <div class="ml-2">{transaction.raw_data.contract[0].parameter.value.owner_address}</div>
           </div>
-          <div>
-            <dt>Reference Block Hash:</dt>
-            <dd>{transaction.raw_data.ref_block_hash}</dd> <!-- Update the property path -->
+          <div class="flex mb-2">
+            <div class="font-bold">Reference Block Hash:</div>
+            <div class="ml-2">{transaction.raw_data.ref_block_hash}</div>
           </div>
-          <div>
-            <dt>Reference Block Bytes:</dt>
-            <dd>{transaction.raw_data.ref_block_bytes}</dd> <!-- Update the property path -->
+          <div class="flex mb-2">
+            <div class="font-bold">Reference Block Bytes:</div>
+            <div class="ml-2">{transaction.raw_data.ref_block_bytes}</div>
           </div>
-          <div>
-            <dt>Reference Block Number:</dt>
-            <dd>{transaction.raw_data.ref_block_num}</dd> <!-- Update the property path -->
+          <div class="flex mb-2">
+            <div class="font-bold">Reference Block Number:</div>
+            <div class="ml-2">{transaction.blockNumber}</div>
           </div>
-          <div>
-            <dt>Expiration:</dt>
-            <dd>{transaction.raw_data.expiration}</dd> <!-- Update the property path -->
+          <div class="flex mb-2">
+            <div class="font-bold">Expiration:</div>
+            <div class="ml-2">{transaction.raw_data.expiration}</div>
           </div>
-          <div>
-            <dt>Fee Limit:</dt>
-            <dd>{transaction.raw_data.fee_limit}</dd> <!-- Update the property path -->
+          <div class="flex mb-2">
+            <div class="font-bold">Fee Limit:</div>
+            <div class="ml-2">{transaction.raw_data.fee_limit}</div>
           </div>
-          <div>
-            <dt>Timestamp:</dt>
-            <dd>{transaction.raw_data.timestamp}</dd> <!-- Update the property path -->
+          <div class="flex mb-2">
+            <div class="font-bold">Timestamp:</div>
+            <div class="ml-2">{transaction.block_timestamp}</div>
           </div>
-          <div>
-            <dt>Contract Version:</dt>
-            <dd>{transaction.contract_version}</dd> <!-- Update the property path -->
+          <div class="flex mb-2">
+            <div class="font-bold">Contract Version:</div>
+            <div class="ml-2">{transaction.raw_data.contract[0].type}</div>
           </div>
         {/each}
-      </dl>
+      </div>
+      {#if showDetails}
+        <button on:click={() => showDetails = false} class="mt-4 bg-blue-500 text-white rounded p-2">
+          Get More Transaction Details
+        </button>
+      {/if}
     </div>
   {:else if transactionInfo && transactionInfo.length === 0}
     <p>No transactions found.</p>
@@ -95,5 +103,22 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     padding: 20px;
     color: white;
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+  }
+
+  .mb-2 {
+    margin-bottom: 0.5rem;
+  }
+
+  .ml-2 {
+    margin-left: 0.5rem;
+  }
+
+  .mt-4 {
+    margin-top: 1rem;
   }
 </style>
