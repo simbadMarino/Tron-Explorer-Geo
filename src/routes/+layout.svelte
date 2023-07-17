@@ -14,7 +14,7 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Skeleton</strong>
+				<strong class="text-xl   uppercase">Tron-Block-Explorer 2.0</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<a
@@ -45,6 +45,8 @@
 		</AppBar>
 	</svelte:fragment>
 	<!-- Page Route Content -->
+
+	
 	<slot />
 </AppShell>
 
