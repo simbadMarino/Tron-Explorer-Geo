@@ -9,52 +9,28 @@
   .glowing-edges::after {
     content: '';
     position: fixed;
-    top: -50%;
-    left: -50%;
-    right: -50%;
-    bottom: -50%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     pointer-events: none;
     z-index: -1;
-    background-image: radial-gradient(circle, #0ff 10%, transparent 80%);
-    animation: glowing 24s ease-in-out infinite;
+    background-image: radial-gradient(circle, rgba(255, 0, 0, 0.7) 10%, transparent 80%);
+    animation: glowing 8s ease-in-out infinite;
   }
 
   @keyframes glowing {
     0% {
       transform: scale(1);
-      opacity: 0.5;
-    }
-    12.5% {
-      transform: scale(1.05);
-      opacity: 0.2;
-    }
-    25% {
-      transform: scale(1.1);
-      opacity: 0.5;
-    }
-    37.5% {
-      transform: scale(1.05);
-      opacity: 0.2;
+      opacity: 0.7;
     }
     50% {
-      transform: scale(1);
-      opacity: 0.5;
-    }
-    62.5% {
       transform: scale(1.05);
-      opacity: 0.2;
-    }
-    75% {
-      transform: scale(1.1);
-      opacity: 0.5;
-    }
-    87.5% {
-      transform: scale(1.05);
-      opacity: 0.2;
+      opacity: 0.3;
     }
     100% {
       transform: scale(1);
-      opacity: 0.5;
+      opacity: 0.7;
     }
   }
 </style>
@@ -63,7 +39,7 @@
   <svelte:fragment slot="header">
     <AppBar>
       <svelte:fragment slot="lead">
-        <strong class="text-xl uppercase text-pink-600">Tron-Block-Explorer 2.0</strong>
+        <strong class="text-xl uppercase text-red-600">Tron-Block-Explorer 2.2</strong>
       </svelte:fragment>
       <svelte:fragment slot="trail">
         <!-- Your existing code for Discord, Twitter, and GitHub buttons -->
