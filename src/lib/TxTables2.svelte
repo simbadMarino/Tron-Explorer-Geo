@@ -77,56 +77,31 @@
 {#if loading}
   <p>Loading...</p>
 {:else}
-  <div class="container items-center">
-    <h2 class="text-xl font-bold mb-4">Latest Tron Block</h2>
-    <div class="grid-container">
-      <div class="grid-item">
-        <p class="label">Block Height:</p>
+  <div class="container mx-auto my-4">
+    <h2 class="text-2xl font-bold mb-4">Latest Tron Block</h2>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="border border-black shadow-md p-4 bg-transparent">
+        <p class="font-bold">Block Height:</p>
         <p>{block.block_header.raw_data.number}</p>
       </div>
-      <div class="grid-item">
-        <p class="label">Number of Transactions:</p>
+      <div class="border border-black shadow-md p-4 bg-transparent">
+        <p class="font-bold">Number of Transactions:</p>
         <p>{block.transactions.length}</p>
       </div>
-      <div class="grid-item">
-        <p class="label">Block Date:</p>
+      <div class="border border-black shadow-md p-4 bg-transparent">
+        <p class="font-bold">Block Date:</p>
         <p>{new Date(block.block_header.raw_data.timestamp).toLocaleDateString()}</p>
       </div>
-      <div class="grid-item">
-        <p class="label">Block Time:</p>
+      <div class="border border-black shadow-md p-4 bg-transparent">
+        <p class="font-bold">Block Time:</p>
         <p>{new Date(block.block_header.raw_data.timestamp).toLocaleTimeString()}</p>
       </div>
-      <div class="grid-item-wide">
-        <svg id="chart" width="700" height="300"></svg>
-        <p class="label">Relative Block Size:</p>
+      <div class="border border-black shadow-md p-4 bg-transparent col-span-2">
+        <div class="chart-container overflow-x-auto overflow-y-hidden">
+          <svg id="chart" width="700" height="300"></svg>
+        </div>
+        <p class="font-bold mt-2">Relative Block Size:</p>
       </div>
     </div>
   </div>
 {/if}
-
-<style>
-  .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .grid-item {
-    border: 1px solid black;
-    box-shadow: 2px 2px 4px #000;
-    padding: 10px;
-    background: transparent;
-  }
-
-  .grid-item-wide {
-    grid-column: span 2;
-    border: 1px solid black;
-    box-shadow: 2px 2px 4px #000;
-    padding: 10px;
-    background: transparent;
-  }
-
-  .label {
-    font-weight: bold;
-  }
-</style>

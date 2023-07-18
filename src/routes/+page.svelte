@@ -11,7 +11,7 @@
   }
 
   /* Hide TxTables2 when the screen width is less than 1500px */
-  @media (max-width: 1500px) {
+  @media (max-width: 300px) {
     .tx-tables-2 {
       display: none;
     }
@@ -33,7 +33,7 @@
     </div>
   </div>
   
-  <div class="bg-slate">
+  <div class="bg-slate border-p">
     <TxTables />
   </div>
   
