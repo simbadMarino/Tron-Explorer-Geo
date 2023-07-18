@@ -10,7 +10,12 @@
     position: relative;
   }
 
-  
+  /* Hide TxTables2 when the screen width is less than 1500px */
+  @media (max-width: 1500px) {
+    .tx-tables-2 {
+      display: none;
+    }
+  }
 </style>
 
 <div class="container w-auto mx-auto h-screen grid grid-cols-2 gap-4 p-4">
@@ -32,7 +37,7 @@
     <TxTables />
   </div>
   
-  <div class="bg-slate">
+  <div class="bg-slate tx-tables-2">
     <TxTables2 />
   </div>
 </div>

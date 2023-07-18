@@ -16,7 +16,7 @@
     pointer-events: none;
     z-index: -1;
     background-image: radial-gradient(circle, rgba(255, 0, 0, 0.7) 10%, transparent 80%);
-    animation: glowing 8s ease-in-out infinite;
+    animation: glowing 5s ease-in-out infinite;
   }
 
   @keyframes glowing {
