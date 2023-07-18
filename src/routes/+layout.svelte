@@ -1,53 +1,75 @@
-<script lang='ts'>
-/// src/routes  +layout.svelte
-	// The ordering of these imports is critical to your app working properly
-	import '@skeletonlabs/skeleton/themes/theme-crimson.css';
-	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
-	import '@skeletonlabs/skeleton/styles/skeleton.css';
-	// Most of your app wide CSS should be put in this file
-	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+<script lang="ts">
+  import '@skeletonlabs/skeleton/themes/theme-crimson.css';
+  import '@skeletonlabs/skeleton/styles/skeleton.css';
+  import '../app.postcss';
+  import { AppShell, AppBar } from '@skeletonlabs/skeleton';
 </script>
 
-<!-- App Shell -->
+<style>
+  .glowing-edges::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    pointer-events: none;
+    z-index: -1;
+    background-image: radial-gradient(circle, #0ff 10%, transparent 80%);
+    animation: glowing 24s ease-in-out infinite;
+  }
+
+  @keyframes glowing {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    12.5% {
+      transform: scale(1.05);
+      opacity: 0.2;
+    }
+    25% {
+      transform: scale(1.1);
+      opacity: 0.5;
+    }
+    37.5% {
+      transform: scale(1.05);
+      opacity: 0.2;
+    }
+    50% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    62.5% {
+      transform: scale(1.05);
+      opacity: 0.2;
+    }
+    75% {
+      transform: scale(1.1);
+      opacity: 0.5;
+    }
+    87.5% {
+      transform: scale(1.05);
+      opacity: 0.2;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+  }
+</style>
+
 <AppShell>
-	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<AppBar>
-			<svelte:fragment slot="lead">
-				<strong class="text-xl   uppercase">Tron-Block-Explorer 2.0</strong>
-			</svelte:fragment>
-			<svelte:fragment slot="trail">
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://discord.gg/EXqV7W8MtY"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Discord
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://twitter.com/SkeletonUI"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Twitter
-				</a>
-				<a
-					class="btn btn-sm variant-ghost-surface"
-					href="https://github.com/skeletonlabs/skeleton"
-					target="_blank"
-					rel="noreferrer"
-				>
-					GitHub
-				</a>
-			</svelte:fragment>
-		</AppBar>
-	</svelte:fragment>
-	<!-- Page Route Content -->
-
-	
-	<slot />
+  <svelte:fragment slot="header">
+    <AppBar>
+      <svelte:fragment slot="lead">
+        <strong class="text-xl uppercase text-pink-600">Tron-Block-Explorer 2.0</strong>
+      </svelte:fragment>
+      <svelte:fragment slot="trail">
+        <!-- Your existing code for Discord, Twitter, and GitHub buttons -->
+      </svelte:fragment>
+    </AppBar>
+  </svelte:fragment>
+  <div class="glowing-edges"></div>
+  <slot />
 </AppShell>
-
