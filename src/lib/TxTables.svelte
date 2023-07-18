@@ -85,7 +85,7 @@
         </tbody>
       </table>
     </div>
-    <button on:click={togglePause} class="mt-4 bg-blue-500 text-white rounded p-2">
+    <button on:click={togglePause} class="mt-4 bg-red-800 text-white rounded-none p-2">
       {paused ? 'Resume' : 'Pause'}
     </button>
   </div>

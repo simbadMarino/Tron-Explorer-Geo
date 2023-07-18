@@ -37,7 +37,7 @@
       bind:value={searchValue}
       class="mr-2 p-2 border border-gray-300 rounded text-black"
     />
-    <button on:click|preventDefault={handleSubmit} class="p-2 bg-blue-500 text-white rounded">Search</button>
+    <button on:click|preventDefault={handleSubmit} class="p-2 bg-red-800 text-white rounded">Search</button>
   </div>
 
   {#if loading}
