@@ -82,7 +82,7 @@
         {/each}
       </div>
       {#if showDetails}
-        <button on:click={() => showDetails = false} class="mt-4 bg-blue-500 text-white rounded p-2">
+        <button on:click={() => showDetails = false} class="mt-4 bg-red-500 text-white rounded p-2">
           Get More Transaction Details
         </button>
       {/if}
