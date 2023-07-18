@@ -1,13 +1,18 @@
 <script>
   import { onMount } from 'svelte';
-  import { getTransactionDetails } from '../api'; // import from the correct location
+  import { userInput } from './store.js'; // import the store
 
-  export let id; // this will be passed in as a prop from the router
-
+  let input;
   let transactionDetails = null;
 
+  // Subscribe to the store to get the user input
+  userInput.subscribe(value => {
+    input = value;
+  });
+
   onMount(async () => {
-    transactionDetails = await getTransactionDetails(id);
+    // Use the user input to fetch the transaction details
+    transactionDetails = await getTransactionDetails(input);
   });
 </script>
 

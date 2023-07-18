@@ -1,4 +1,6 @@
 <script>
+  import { userInput } from './store.js'; // import the store
+
   let transactionInfo = null;
   let loading = false;
   let searchValue = '';
@@ -7,6 +9,9 @@
   function handleSubmit() {
     loading = true;
     showDetails = false;
+
+    // Update the store with the user input
+    userInput.set(searchValue);
 
     const options = {
       method: 'GET',
@@ -28,8 +33,8 @@
   }
 </script>
 
-<div class="container">
-  <h2 class="text-xl font-bold mb-4">Transaction Info</h2>
+<div class="container mx-auto p-4 rounded shadow bg-gray-800 text-white">
+  <h2 class="text-2xl font-bold mb-4">Transaction Info</h2>
   <div class="flex mb-4">
     <input
       type="text"
@@ -44,45 +49,45 @@
     <p>Loading...</p>
   {:else if transactionInfo && transactionInfo.length > 0}
     <div class="mt-4">
-      <h3 class="text-lg font-bold mb-2">Transaction Details</h3>
+      <h3 class="text-lg  text-red-500 font-bold mb-2">Transaction Details</h3>
       <div>
         {#each transactionInfo as transaction}
           <div class="flex mb-2">
             <div class="font-bold">Transaction ID:</div>
-            <div class="ml-2">{transaction.txID}</div>
+            <div class="ml-2 text-cyan-200">{transaction.txID}</div>
           </div>
           <div class="flex mb-2">
             <div class="font-bold">Owner Address:</div>
-            <div class="ml-2">{transaction.raw_data.contract[0].parameter.value.owner_address}</div>
+            <div class="ml-2 text-cyan-200">{transaction.raw_data.contract[0].parameter.value.owner_address}</div>
           </div>
           <div class="flex mb-2">
             <div class="font-bold">Reference Block Hash:</div>
-            <div class="ml-2">{transaction.raw_data.ref_block_hash}</div>
+            <div class="ml-2 text-cyan-200">{transaction.raw_data.ref_block_hash}</div>
           </div>
           <div class="flex mb-2">
             <div class="font-bold">Reference Block Bytes:</div>
-            <div class="ml-2">{transaction.raw_data.ref_block_bytes}</div>
+            <div class="ml-2 text-cyan-200">{transaction.raw_data.ref_block_bytes}</div>
           </div>
           <div class="flex mb-2">
             <div class="font-bold">Reference Block Number:</div>
-            <div class="ml-2">{transaction.blockNumber}</div>
+            <div class="ml-2 text-cyan-200">{transaction.blockNumber}</div>
           </div>
           <div class="flex mb-2">
             <div class="font-bold">Expiration:</div>
-            <div class="ml-2">{transaction.raw_data.expiration}</div>
+            <div class="ml-2 text-cyan-200">{transaction.raw_data.expiration}</div>
           </div>
           <div class="flex mb-2">
             <div class="font-bold">Timestamp:</div>
-            <div class="ml-2">{transaction.block_timestamp}</div>
+            <div class="ml-2 text-cyan-200">{transaction.block_timestamp}</div>
           </div>
           <div class="flex mb-2">
             <div class="font-bold">Contract Version:</div>
-            <div class="ml-2">{transaction.raw_data.contract[0].type}</div>
+            <div class="ml-2 text-cyan-200">{transaction.raw_data.contract[0].type}</div>
           </div>
         {/each}
       </div>
       {#if showDetails}
-        <button on:click={() => showDetails = false} class="mt-4 bg-red-500 text-white rounded p-2">
+        <button on:click={() => showDetails = false} class="mt-4 bg-red-800 text-cyan-200 rounded p-2">
           Get More Transaction Details
         </button>
       {/if}
@@ -91,30 +96,3 @@
     <p>No transactions found.</p>
   {/if}
 </div>
-
-<style>
-  .container {
-    background-color: slate;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    padding: 20px;
-    color: white;
-  }
-
-  .flex {
-    display: flex;
-    align-items: center;
-  }
-
-  .mb-2 {
-    margin-bottom: 0.5rem;
-  }
-
-  .ml-2 {
-    margin-left: 0.5rem;
-  }
-
-  .mt-4 {
-    margin-top: 1rem;
-  }
-</style>
