@@ -33,7 +33,7 @@
   <div class="flex mb-4">
     <input
       type="text"
-      placeholder="Enter TRX Hash or Sender Address"
+      placeholder="Enter Sender Address"
       bind:value={searchValue}
       class="mr-2 p-2 border border-gray-300 rounded text-black"
     />
@@ -70,10 +70,6 @@
           <div class="flex mb-2">
             <div class="font-bold">Expiration:</div>
             <div class="ml-2">{transaction.raw_data.expiration}</div>
-          </div>
-          <div class="flex mb-2">
-            <div class="font-bold">Fee Limit:</div>
-            <div class="ml-2">{transaction.raw_data.fee_limit}</div>
           </div>
           <div class="flex mb-2">
             <div class="font-bold">Timestamp:</div>

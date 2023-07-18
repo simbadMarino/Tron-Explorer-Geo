@@ -1,5 +1,4 @@
 <script>
-///// src/lib TxTables.svelte
   import { onMount, onDestroy } from 'svelte';
   import TronWeb from 'tronweb';
 
@@ -7,6 +6,7 @@
   let loading = true;
   let blockHeight = 0;
   let transactionCount = 0;
+  let paused = false;
 
   const HttpProvider = 'https://api.trongrid.io';
   const privateKey = import.meta.env.VITE_APP_PRIVATE_KEY; // Vite injects env variables with "VITE_" prefix
@@ -18,6 +18,8 @@
   const tronWeb = new TronWeb(fullNode, solidityNode, eventServer, privateKey);
 
   const fetchLatestBlock = async () => {
+    if (paused) return;
+
     try {
       const latestBlock = await tronWeb.trx.getCurrentBlock();
       blockHeight = latestBlock.block_header.raw_data.number;
@@ -37,6 +39,10 @@
     }
   };
 
+  const togglePause = () => {
+    paused = !paused;
+  };
+
   let intervalId;
 
   onMount(() => {
@@ -48,27 +54,39 @@
     clearInterval(intervalId); // Clear the interval when the component is destroyed
   });
 </script>
-{#if loading}
 
+<style>
+  .scroll-container {
+    max-height: 500px; /* Adjust this value to control the visible height of the container */
+    overflow-y: auto;
+  }
+</style>
+
+{#if loading}
   <p>Loading...</p>
 {:else}
   <div class="container items-center">
     <h2 class="text-xl font-bold mb-4">Latest Tron Block Transactions: [Block Height]: {blockHeight} [#TX]: {transactionCount}</h2>
-    <table class="w-full table-auto">
-      <thead>
-        <tr>
-          <th class="px-4 py-2">Transaction Hash</th>
-          <th class="px-4 py-2">Sender Address</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each transactions as transaction}
+    <div class="scroll-container">
+      <table class="w-full table-auto">
+        <thead>
           <tr>
-            <td>{transaction.txID}</td>
-            <td>{transaction.senderAddress}</td>
+            <th class="px-4 py-2">Transaction Hash</th>
+            <th class="px-4 py-2">Sender Address</th>
           </tr>
-        {/each}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {#each transactions as transaction}
+            <tr>
+              <td>{transaction.txID}</td>
+              <td>{transaction.senderAddress}</td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </div>
+    <button on:click={togglePause} class="mt-4 bg-blue-500 text-white rounded p-2">
+      {paused ? 'Resume' : 'Pause'}
+    </button>
   </div>
 {/if}
