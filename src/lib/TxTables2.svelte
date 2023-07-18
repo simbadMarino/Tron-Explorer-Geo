@@ -5,7 +5,8 @@
 
   let block = null;
   let loading = true;
-  let data = Array(20).fill(0); // Initialize an array of 20 zeros
+  let data = []; // Initialize an empty array
+  let maxVal = 0;
 
   const HttpProvider = 'https://api.trongrid.io';
   const privateKey = import.meta.env.VITE_APP_PRIVATE_KEY;
@@ -20,9 +21,13 @@
     try {
       block = await tronWeb.trx.getCurrentBlock();
       if (block.transactions) {
-        data.push(block.transactions.length);
-        if (data.length > 20) {
-          data.shift(); // Keep only the last 20 transaction counts
+        const txCount = block.transactions.length;
+        data.push(txCount);
+        if (data.length > 27) {
+          data.shift(); // Keep only the last 27 transaction counts
+        }
+        if (data.length === 1) {
+          maxVal = txCount * 2; // Set the maximum value to be 1.5 times the first value
         }
       }
       loading = false;
@@ -30,24 +35,26 @@
       const svg = d3.select('#chart');
       const width = +svg.attr('width');
       const height = +svg.attr('height');
-      const x = d3.scaleBand().range([0, width]).padding(0.1);
-      const y = d3.scaleLinear().range([height, 0]);
 
-      const g = svg.append('g');
+      const x = d3.scaleBand()
+        .domain(d3.range(data.length))
+        .range([0, width])
+        .padding(0.1);
 
-      g.selectAll('*').remove(); // Clear the chart
+      const y = d3.scaleLinear()
+        .domain([0, maxVal])
+        .range([height, 0]);
 
-      x.domain(data.map((d, i) => i));
-      y.domain([0, d3.max(data)]);
+      svg.selectAll('*').remove(); // Clear the chart
 
-      g.selectAll('.bar')
+      svg.selectAll('rect')
         .data(data)
         .enter().append('rect')
-        .attr('class', 'bar')
         .attr('x', (d, i) => x(i))
         .attr('y', d => y(d))
         .attr('width', x.bandwidth())
-        .attr('height', d => height - y(d));
+        .attr('height', d => height - y(d))
+        .attr('fill', 'slate'); // Set the color of the bars to white
 
     } catch (error) {
       console.error('Error fetching block:', error);
@@ -89,8 +96,9 @@
         <p class="label">Block Time:</p>
         <p>{new Date(block.block_header.raw_data.timestamp).toLocaleTimeString()}</p>
       </div>
-      <div class="grid-item">
-        <svg id="chart" width="400" height="200"></svg>
+      <div class="grid-item-wide">
+        <svg id="chart" width="700" height="300"></svg>
+        <p class="label">Relative Block Size:</p>
       </div>
     </div>
   </div>
@@ -110,11 +118,15 @@
     background: transparent;
   }
 
-  .label {
-    font-weight: bold;
+  .grid-item-wide {
+    grid-column: span 2;
+    border: 1px solid black;
+    box-shadow: 2px 2px 4px #000;
+    padding: 10px;
+    background: transparent;
   }
 
-  .bar {
-    fill: red;
+  .label {
+    font-weight: bold;
   }
 </style>
