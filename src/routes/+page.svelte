@@ -3,20 +3,9 @@
   import TxTables2 from '../lib/TxTables2.svelte';
   import TxInfo from '../lib/TxInfo.svelte';
   import IntroWidget from '../lib/IntroWidget.svelte';
+  import TxInfoBelow from '../lib/TxInfoBelow.svelte';
+   import FindHash from '../lib/FindHash.svelte'; // Import the new component
 </script>
-
-<style>
-  .container {
-    position: relative;
-  }
-
-  /* Hide TxTables2 when the screen width is less than 1500px */
-  @media (max-width: 300px) {
-    .tx-tables-2 {
-      display: none;
-    }
-  }
-</style>
 
 <div class="container w-auto mx-auto h-screen grid grid-cols-2 gap-4 p-4">
   <div class="relative">
@@ -37,7 +26,18 @@
     <TxTables />
   </div>
   
-  <div class="bg-slate tx-tables-2">
+  <div class="bg-slate tx-tables-2 max-width: 300px relative">
     <TxTables2 />
+  </div>
+
+  <div class="bg-slate w-screen h-screen overflow-auto">
+    <div class="flex flex-row">
+      <div class="bg-slate tx-tables-2 flex-grow">
+        <TxInfoBelow />
+      </div>
+      <div class="bg-slate tx-tables-2 flex-grow">
+         <FindHash />
+      </div>
+    </div>
   </div>
 </div>
