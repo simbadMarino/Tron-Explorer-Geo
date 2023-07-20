@@ -30,24 +30,22 @@
     <TxTables2 />
   </div>
 
-  <div class="bg-slate h-screen w-screen flex">
-    <div class="w-1/2">
-      <div class="bg-slate tx-tables-2 flex-grow">
+
+
+  <div class="bg-slate h-screen w-screen flex ">
+    <div class="">
+      <div class="bg-slate">
         
-          <div class="flex-grow">
+          <div class="flex">
             <TxInfoBelow />
           
         </div>
       </div>
     </div>
     <div> 
-      <div class="bg-slate tx-tables-2 w-full flex-grow">
-        <div class="flex flex-col w-full h-full">
-          
-            <FindHash />
-          </div>
-        
-      </div>
+     
+       
+      
     </div>
   </div>
 </div>

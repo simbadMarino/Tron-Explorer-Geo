@@ -51,14 +51,14 @@
   }
 </script>
 
-<div class="container mx-auto p-4 rounded shadow bg-slate text-white">
+<div class="w-9/12 container mx-auto p-4 rounded shadow bg-slate text-white">
   <h2 class="text-2xl font-bold mb-4">Transaction Info</h2>
   <div class="flex mb-4">
     <input
       type="text"
       placeholder="Enter Sender Address"
       bind:value={searchValue}
-      class="mr-2 p-2 border border-slate-300 rounded text-black"
+      class="w-[100rem] mr-5 p-3 border border-slate-300 rounded text-black"
     />
     <button on:click|preventDefault={handleSubmit} class="p-2 bg-red-800 text-white rounded">Search</button>
   </div>
@@ -70,7 +70,7 @@
       <h3 class="text-lg  text-red-500 font-bold mb-2">Transaction Details</h3>
       <div>
         {#each transactionInfo as transaction (transaction.txID)}
-          <div class="flex mb-2 cursor-pointer" on:click={() => selectTransaction(transaction)} on:keydown={() => selectTransaction(transaction)}>
+          <div class="flex mb-2 cursor-pointer justify" on:click={() => selectTransaction(transaction)} on:keydown={() => selectTransaction(transaction)}>
             <div class="font-bold">Transaction ID:</div>
             <div class="ml-2 text-cyan-200">{transaction.txID}</div>
           </div>
