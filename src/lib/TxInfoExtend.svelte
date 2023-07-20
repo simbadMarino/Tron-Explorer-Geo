@@ -25,7 +25,7 @@
 </script>
 
 <div class="container">
-  <h2 class="text-xl font-bold mb-4">Transaction Info</h2>
+  <h2 class="text-xl  font-bold mb-4">Transaction Info</h2>
   <div class="flex mb-4">
     <input
       type="text"

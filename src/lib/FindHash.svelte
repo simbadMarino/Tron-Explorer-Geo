@@ -5,6 +5,7 @@
 
   let data;
   let svg;
+  let maxVal = 0;
 
   onMount(async () => {
     const options = {
@@ -32,6 +33,11 @@
         time: new Date(time),
         price: parseFloat(item['4. close'])
       }));
+
+      if (data.length === 1) {
+        maxVal = data[0].price * 2; // Set the maximum value to be 1.5 times the first value
+      }
+
     } catch (error) {
       console.error(error);
     }
@@ -44,56 +50,42 @@
   });
 
   function drawGraph(data) {
+    // Create a D3 selection from the SVG element
+    const svgD3 = d3.select(svg);
+
     // Get the width and height of the SVG element
     const width = svg.clientWidth;
     const height = svg.clientHeight;
 
-    // Set the ranges
-    const x = d3
-      .scaleTime()
-      .domain(d3.extent(data, d => d.time))
-      .range([0, width]);
+    const x = d3.scaleBand()
+      .domain(d3.range(data.length))
+      .range([0, width])
+      .padding(0.1);
 
-    const y = d3
-      .scaleLinear()
-      .domain([0, d3.max(data, d => d.price)])
+    const y = d3.scaleLinear()
+      .domain([0, maxVal])
       .range([height, 0]);
 
-    // Define the line
-    const valueline = d3
-      .line()
-      .x(d => x(d.time))
-      .y(d => y(d.price) * 60);
+    svgD3.selectAll('*').remove(); // Clear the chart
 
-    // Add the valueline path.
-    d3.select(svg)
-      .select(".line") // Assuming you have a CSS class "line" to select the path element
-      .datum(data)
-      .attr("d", valueline)
-      .attr("stroke", "url(#gradient)");
-  }
+    svgD3.selectAll('rect')
+      .data(data)
+      .enter().append('rect')
+      .attr('x', (d, i) => x(i))
+      .attr('y', d => y(d.price))
+      .attr('width', x.bandwidth())
+      .attr('height', d => height - y(d.price))
+      .attr('fill', 'slate'); // Set the color of the bars to white
+}
+
 </script>
 
-<div class="container">
-  <svg id="graph" bind:this={svg} viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
-    <defs>
-      <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" style="stop-color:green;stop-opacity:1" />
-        <stop offset="100%" style="stop-color:red;stop-opacity:1" />
-      </linearGradient>
-    </defs>
-    <path class="line"></path>
+<div class="container h-full">
+ <svg id="graph" bind:this={svg} class="w-full" >
   </svg>
 
   {#if data}
     <svg id="graph" bind:this={svg}>
-      <defs>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:green;stop-opacity:1" />
-          <stop offset="100%" style="stop-color:red;stop-opacity:1" />
-        </linearGradient>
-      </defs>
-      <path class="line"></path>
     </svg>
   {:else}
     <p>Loading...</p>

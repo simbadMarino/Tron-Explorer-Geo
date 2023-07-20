@@ -30,23 +30,23 @@
     <TxTables2 />
   </div>
 
-  <div class="bg-slate  h-screen overflow-auto flex"> <!-- Add flex here -->
-    <div class="w-1/2"> <!-- Add w-1/2 here -->
+  <div class="bg-slate h-screen w-screen flex">
+    <div class="w-1/2">
       <div class="bg-slate tx-tables-2 flex-grow">
-        <div class="flex flex-col h-full"> <!-- Use flexbox to align components vertically -->
-          <div class="flex-grow"> <!-- Use flex-grow to expand the component vertically -->
+        
+          <div class="flex-grow">
             <TxInfoBelow />
-          </div>
+          
         </div>
       </div>
     </div>
-    <div class="w-1/2"> <!-- Add w-1/2 here -->
-      <div class="bg-slate tx-tables-2 flex-grow">
-        <div class="flex flex-col h-full"> <!-- Use flexbox to align components vertically -->
-          <div class="flex-grow"> <!-- Use flex-grow to expand the component vertically -->
+    <div> 
+      <div class="bg-slate tx-tables-2 w-full flex-grow">
+        <div class="flex flex-col w-full h-full">
+          
             <FindHash />
           </div>
-        </div>
+        
       </div>
     </div>
   </div>
