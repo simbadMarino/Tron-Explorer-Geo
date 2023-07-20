@@ -1,65 +1,108 @@
 <script>
-  import { writable } from 'svelte/store';
+  import { onMount, afterUpdate } from 'svelte';
+  import * as d3 from 'd3';
+  import axios from 'axios';
 
-  let walletAssets = null;
-  let loading = false;
-  let searchValue = '';
+  let data;
+  let svg;
 
-  function handleSubmit() {
-    loading = true;
-    walletAssets = null;
-
+  onMount(async () => {
     const options = {
       method: 'GET',
+      url: 'https://alpha-vantage.p.rapidapi.com/query',
+      params: {
+        interval: '5min',
+        function: 'TIME_SERIES_INTRADAY',
+        symbol: 'TRX',
+        datatype: 'json',
+        output_size: 'compact'
+      },
       headers: {
-        accept: 'application/json',
-        'TRON-PRO-API-KEY': 'your-api-key' // Replace with your actual API key
+        'X-RapidAPI-Key': '4064815201msh3a12cd8c90799b4p1a7446jsn536df58cd3b1',
+        'X-RapidAPI-Host': 'alpha-vantage.p.rapidapi.com'
       }
     };
 
-    fetch(`https://api.shasta.trongrid.io/v1/assets/${searchValue}`, options)
-      .then(response => response.json())
-      .then(response => {
-        walletAssets = response.data; // Get the wallet assets
-        loading = false;
-      })
-      .catch(err => console.error(err));
-  }
+    try {
+      const response = await axios.request(options);
+      const timeSeries = response.data['Time Series (5min)'];
 
-  console.log(walletAssets);
+      // Convert the time series object into an array of objects with 'time' and 'price' properties
+      data = Object.entries(timeSeries).map(([time, item]) => ({
+        time: new Date(time),
+        price: parseFloat(item['4. close'])
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  afterUpdate(() => {
+    if (data) {
+      drawGraph(data);
+    }
+  });
+
+  function drawGraph(data) {
+    // Get the width and height of the SVG element
+    const width = svg.clientWidth;
+    const height = svg.clientHeight;
+
+    // Set the ranges
+    const x = d3
+      .scaleTime()
+      .domain(d3.extent(data, d => d.time))
+      .range([0, width]);
+
+    const y = d3
+      .scaleLinear()
+      .domain([0, d3.max(data, d => d.price)])
+      .range([height, 0]);
+
+    // Define the line
+    const valueline = d3
+      .line()
+      .x(d => x(d.time))
+      .y(d => y(d.price));
+
+    // Add the valueline path.
+    d3.select(svg)
+      .select(".line") // Assuming you have a CSS class "line" to select the path element
+      .datum(data)
+      .attr("d", valueline)
+      .attr("stroke", "url(#gradient)");
+  }
 </script>
 
-<div class="container mx-auto p-4 rounded shadow bg-slate text-white">
-  <h2 class="text-2xl font-bold mb-4">Wallet Assets</h2>
-  <div class="flex mb-4">
-    <input
-      type="text"
-      placeholder="Enter Wallet Address"
-      bind:value={searchValue}
-      class="mr-2 p-2 border border-slate-300 rounded text-black"
-    />
-    <button on:click|preventDefault={handleSubmit} class="p-2 bg-red-800 text-white rounded">Search</button>
-  </div>
+<style>
+  #graph {
+    width: 100%;
+    height: 100%;
+  }
+</style>
 
-  {#if loading}
-    <p>Loading...</p>
-  {:else if walletAssets}
-    <div class="mt-4">
-      <h3 class="text-lg  text-red-500 font-bold mb-2">Wallet Assets</h3>
-      <div>
-       
-          {#each walletAssets as asset (asset.id)}
-  <div>
-    <h4>{asset.name}</h4> <!-- Replace 'name' with the actual property name -->
-    <p>{asset.description}</p> <!-- Replace 'description' with the actual property name -->
-    <!-- Add more properties as needed -->
-    
-
-  </div>
-{/each}
-
-        
-      </div>
-    </div>
-  {/if}
+<div class="container">
+  <svg id="graph" bind:this={svg}>
+    <defs>
+      <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:green;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:red;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <path class="line"></path>
+  </svg>
 </div>
+
+{#if data}
+  <svg id="graph" bind:this={svg}>
+    <defs>
+      <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:green;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:red;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <path class="line"></path>
+  </svg>
+{:else}
+  <p>Loading...</p>
+{/if}
