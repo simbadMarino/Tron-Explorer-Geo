@@ -63,7 +63,7 @@
     const valueline = d3
       .line()
       .x(d => x(d.time))
-      .y(d => y(d.price));
+      .y(d => y(d.price) * 30);
 
     // Add the valueline path.
     d3.select(svg)
@@ -75,6 +75,11 @@
 </script>
 
 <style>
+  .container {
+    width: 100%;
+    height: 100%;
+  }
+  
   #graph {
     width: 100%;
     height: 100%;
@@ -82,7 +87,7 @@
 </style>
 
 <div class="container">
-  <svg id="graph" bind:this={svg}>
+  <svg id="graph" bind:this={svg} viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
     <defs>
       <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" style="stop-color:green;stop-opacity:1" />
