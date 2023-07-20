@@ -63,7 +63,7 @@
     const valueline = d3
       .line()
       .x(d => x(d.time))
-      .y(d => y(d.price) * 30);
+      .y(d => y(d.price) * 60);
 
     // Add the valueline path.
     d3.select(svg)
@@ -73,18 +73,6 @@
       .attr("stroke", "url(#gradient)");
   }
 </script>
-
-<style>
-  .container {
-    width: 100%;
-    height: 100%;
-  }
-  
-  #graph {
-    width: 100%;
-    height: 100%;
-  }
-</style>
 
 <div class="container">
   <svg id="graph" bind:this={svg} viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
@@ -96,18 +84,18 @@
     </defs>
     <path class="line"></path>
   </svg>
-</div>
 
-{#if data}
-  <svg id="graph" bind:this={svg}>
-    <defs>
-      <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" style="stop-color:green;stop-opacity:1" />
-        <stop offset="100%" style="stop-color:red;stop-opacity:1" />
-      </linearGradient>
-    </defs>
-    <path class="line"></path>
-  </svg>
-{:else}
-  <p>Loading...</p>
-{/if}
+  {#if data}
+    <svg id="graph" bind:this={svg}>
+      <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:green;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:red;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <path class="line"></path>
+    </svg>
+  {:else}
+    <p>Loading...</p>
+  {/if}
+</div>

@@ -4,7 +4,7 @@
   import TxInfo from '../lib/TxInfo.svelte';
   import IntroWidget from '../lib/IntroWidget.svelte';
   import TxInfoBelow from '../lib/TxInfoBelow.svelte';
-   import FindHash from '../lib/FindHash.svelte'; // Import the new component
+  import FindHash from '../lib/FindHash.svelte'; // Import the new component
 </script>
 
 <div class="container w-auto mx-auto h-screen grid grid-cols-2 gap-4 p-4">
@@ -30,13 +30,23 @@
     <TxTables2 />
   </div>
 
-  <div class="bg-slate w-screen h-screen overflow-auto">
-    <div class="flex flex-row">
+  <div class="bg-slate  h-screen overflow-auto flex"> <!-- Add flex here -->
+    <div class="w-1/2"> <!-- Add w-1/2 here -->
       <div class="bg-slate tx-tables-2 flex-grow">
-        <TxInfoBelow />
+        <div class="flex flex-col h-full"> <!-- Use flexbox to align components vertically -->
+          <div class="flex-grow"> <!-- Use flex-grow to expand the component vertically -->
+            <TxInfoBelow />
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="w-1/2"> <!-- Add w-1/2 here -->
       <div class="bg-slate tx-tables-2 flex-grow">
-         <FindHash />
+        <div class="flex flex-col h-full"> <!-- Use flexbox to align components vertically -->
+          <div class="flex-grow"> <!-- Use flex-grow to expand the component vertically -->
+            <FindHash />
+          </div>
+        </div>
       </div>
     </div>
   </div>
