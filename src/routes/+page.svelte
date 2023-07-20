@@ -12,7 +12,7 @@
     <div class="glowing-logo"></div>
     <img src="Tronmane.png" alt="Tronmane" class="h-full w-full object-cover">
   </div>
-  
+
   <div class="bg-slate">
     <div class="h-half">
       <IntroWidget />
@@ -21,31 +21,23 @@
       <TxInfo />
     </div>
   </div>
-  
+
   <div class="bg-slate border-p">
     <TxTables />
   </div>
-  
+
   <div class="bg-slate tx-tables-2 max-width: 300px relative">
     <TxTables2 />
   </div>
 
-
-
-  <div class="bg-slate h-screen w-screen flex ">
-    <div class="">
+  <div class="bg-slate h-screen w-screen flex">
+    <div>
       <div class="bg-slate">
-        
-          <div class="flex">
-            <TxInfoBelow />
-          
+        <div class="flex">
+          <TxInfoBelow />
         </div>
       </div>
     </div>
-    <div> 
-     
-       
-      
-    </div>
+    <div></div>
   </div>
 </div>
