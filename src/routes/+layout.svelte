@@ -39,7 +39,7 @@
   <svelte:fragment slot="header">
     <AppBar>
       <svelte:fragment slot="lead">
-        <strong class="text-xl uppercase text-red-600">Tron-Block-Explorer 2.2</strong>
+        <strong class="text-xl uppercase text-red-600">Tron-Blockchain-Explorer Lite 2.2</strong>
       </svelte:fragment>
       <svelte:fragment slot="trail">
         <!-- Your existing code for Discord, Twitter, and GitHub buttons -->
