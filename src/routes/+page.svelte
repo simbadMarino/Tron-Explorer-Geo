@@ -25,7 +25,7 @@
     </div>
   {:else}
     <div class="relative">
-      <img src="Tronmane.png" alt="Tronmane" class="h-full w-full object-cover">
+      <img src="Tronmane2.png" alt="Tronmane" class="h-full w-full object-cover">
     </div>
 
     <div class="bg-slate">

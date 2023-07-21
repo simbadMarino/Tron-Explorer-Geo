@@ -25,7 +25,7 @@
       opacity: 0.7;
     }
     50% {
-      transform: scale(1.05);
+      transform: scale(1.3);
       opacity: 0.3;
     }
     100% {

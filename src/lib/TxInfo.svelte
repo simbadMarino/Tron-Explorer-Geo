@@ -45,7 +45,7 @@
 </script>
 
 <div class="container mx-auto p-4 rounded shadow bg-gray-800 text-white">
-  <h2 class="text-2xl font-bold mb-4">Transaction Info</h2>
+  <h2 class="text-2xl font-bold mb-4">Last Transaction Info</h2>
 
   <!-- Search input and button -->
   <div class="flex mb-4">
