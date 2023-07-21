@@ -1,11 +1,11 @@
 <script>
   import { onMount } from 'svelte';
-  import TxTables from '../lib/TxTables.svelte';
-  import TxTables2 from '../lib/TxTables2.svelte';
-  import TxInfo from '../lib/TxInfo.svelte';
-  import IntroWidget from '../lib/IntroWidget.svelte';
-  import TxInfoBelow from '../lib/TxInfoBelow.svelte';
-  import FindHash from '../lib/FindHash.svelte'; // Import the new component
+  import TxTables from '../lib/TxTables.svelte';            // Middle-left component
+  import TxTables2 from '../lib/TxTables2.svelte';          // Middle-right component
+  import TxInfo from '../lib/TxInfo.svelte';                // Top-right component
+  import IntroWidget from '../lib/IntroWidget.svelte';      // Top-right component
+  import TxInfoBelow from '../lib/TxInfoBelow.svelte';      // Bottom-left component
+  import FindHash from '../lib/FindHash.svelte';            // Bottom search component
 
   let isLoading = true; // Set the initial loading state
 
@@ -18,23 +18,21 @@
 </script>
 
 <div class="container w-auto mx-auto h-screen grid grid-cols-2 gap-4 p-4">
-  <!-- Render the loading screen based on the loading state -->
   {#if isLoading}
     <div class="loading-screen">
       <img src="/loading.gif" alt="Loading" />
-      <h2>Loading...</h2>
+      <h2>Scanning Tron Chain...</h2>
     </div>
   {:else}
     <div class="relative">
-      <div class="glowing-logo"></div>
       <img src="Tronmane.png" alt="Tronmane" class="h-full w-full object-cover">
     </div>
 
     <div class="bg-slate">
-      <div class="h-half">
+      <div>
         <IntroWidget />
       </div>
-      <div class="h-half">
+      <div>
         <TxInfo />
       </div>
     </div>
@@ -50,7 +48,7 @@
     <div class="bg-slate h-screen w-screen flex">
       <div>
         <div class="bg-slate">
-          <div class="flex">
+          <div>
             <TxInfoBelow />
           </div>
         </div>
@@ -66,12 +64,35 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f8f8f8;
+    background-color: transparent;
     z-index: 9999;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .loading-screen img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 1;
+    animation: fadeOut 2s forwards;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 </style>

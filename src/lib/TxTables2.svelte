@@ -8,6 +8,7 @@
   let data = []; // Initialize an empty array
   let maxVal = 0;
 
+  // TronWeb configuration
   const HttpProvider = 'https://api.trongrid.io';
   const privateKey = import.meta.env.VITE_APP_PRIVATE_KEY;
 
@@ -19,7 +20,9 @@
 
   const fetchLatestBlock = async () => {
     try {
+      // Fetch the latest block
       block = await tronWeb.trx.getCurrentBlock();
+
       if (block.transactions) {
         const txCount = block.transactions.length;
         data.push(txCount);
@@ -30,8 +33,10 @@
           maxVal = txCount * 2; // Set the maximum value to be 1.5 times the first value
         }
       }
+
       loading = false;
 
+      // D3 chart rendering
       const svg = d3.select('#chart');
       const width = +svg.attr('width');
       const height = +svg.attr('height');
@@ -54,7 +59,7 @@
         .attr('y', d => y(d))
         .attr('width', x.bandwidth())
         .attr('height', d => height - y(d))
-        .attr('fill', 'slate'); // Set the color of the bars to white
+        .attr('fill', 'slate'); // Set the color of the bars to slate
 
     } catch (error) {
       console.error('Error fetching block:', error);
@@ -80,22 +85,31 @@
   <div class="container mx-auto my-4">
     <h2 class="text-2xl font-bold mb-4">Latest Tron Block</h2>
     <div class="grid grid-cols-2 gap-4">
+      <!-- Block Height -->
       <div class="border border-black shadow-md p-4 bg-transparent">
         <p class="font-bold">Block Height:</p>
         <p>{block.block_header.raw_data.number}</p>
       </div>
+
+      <!-- Number of Transactions -->
       <div class="border border-black shadow-md p-4 bg-transparent">
         <p class="font-bold">Number of Transactions:</p>
         <p>{block.transactions.length}</p>
       </div>
+
+      <!-- Block Date -->
       <div class="border border-black shadow-md p-4 bg-transparent">
         <p class="font-bold">Block Date:</p>
         <p>{new Date(block.block_header.raw_data.timestamp).toLocaleDateString()}</p>
       </div>
+
+      <!-- Block Time -->
       <div class="border border-black shadow-md p-4 bg-transparent">
         <p class="font-bold">Block Time:</p>
         <p>{new Date(block.block_header.raw_data.timestamp).toLocaleTimeString()}</p>
       </div>
+
+      <!-- Chart and Relative Block Size -->
       <div class="border border-black shadow-md p-4 bg-transparent col-span-2">
         <div class="chart-container overflow-x-auto overflow-y-hidden">
           <svg id="chart" width="700" height="300"></svg>

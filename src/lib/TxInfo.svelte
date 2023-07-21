@@ -35,6 +35,8 @@
 
 <div class="container mx-auto p-4 rounded shadow bg-gray-800 text-white">
   <h2 class="text-2xl font-bold mb-4">Transaction Info</h2>
+
+  <!-- Search input and button -->
   <div class="flex mb-4">
     <input
       type="text"
@@ -45,11 +47,13 @@
     <button on:click|preventDefault={handleSubmit} class="p-2 bg-red-800 text-white rounded">Search</button>
   </div>
 
+  <!-- Loading state -->
   {#if loading}
     <p>Loading...</p>
   {:else if transactionInfo && transactionInfo.length > 0}
+    <!-- Transaction details -->
     <div class="mt-4">
-      <h3 class="text-lg  text-red-500 font-bold mb-2">Transaction Details</h3>
+      <h3 class="text-lg text-red-500 font-bold mb-2">Transaction Details</h3>
       <div>
         {#each transactionInfo as transaction}
           <div class="flex mb-2">

@@ -8,6 +8,7 @@
   let transactionCount = 0;
   let paused = false;
 
+  // TronWeb configuration
   const HttpProvider = 'https://api.trongrid.io';
   const privateKey = import.meta.env.VITE_APP_PRIVATE_KEY; // Vite injects env variables with "VITE_" prefix
 
