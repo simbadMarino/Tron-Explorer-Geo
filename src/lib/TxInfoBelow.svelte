@@ -99,12 +99,53 @@
             <div class="ml-2 text-cyan-200">{transaction.txID}</div>
           </div>
           {#if selectedTransaction && selectedTransaction.txID === transaction.txID}
-            <!-- Transaction details here -->
-          {/if}
+  <div class="ml-4">
+    <div class="flex mb-2">
+      <div class="font-bold">Completion:</div>
+      <div class="ml-2 text-lime-300">{selectedTransaction.ret[0].contractRet}</div>
+    </div>
+    <div class="flex mb-2">
+      <div class="font-bold">Owner Address:</div>
+      <div class="ml-2 text-red-400">{selectedTransaction.raw_data.contract[0].parameter.value.owner_address}</div>
+    </div>
+    <div class="flex mb-2">
+      <div class="font-bold">Block Number:</div>
+      <div class="ml-2 text-red-400">{selectedTransaction.blockNumber}</div>
+    </div>
+    <div class="flex mb-2">
+      <div class="font-bold">Block Timestamp:</div>
+      <div class="ml-2 text-red-400">{selectedTransaction.block_timestamp}</div>
+    </div>
+    <div class="flex mb-2">
+      <div class="font-bold">Expiration:</div>
+      <div class="ml-2 text-red-400">{selectedTransaction.raw_data.expiration}</div>
+    </div>
+    <div class="flex mb-2">
+      <div class="font-bold">Reference Block Bytes:</div>
+      <div class="ml-2 text-red-400">{selectedTransaction.raw_data.ref_block_bytes}</div>
+    </div>
+    <div class="flex mb-2">
+      <div class="font-bold">Reference Block Hash:</div>
+      <div class="ml-2 text-red-400">{selectedTransaction.raw_data.ref_block_hash}</div>
+    </div>
+    <div class="flex mb-2">
+      <div class="font-bold">Timestamp:</div>
+      <div class="ml-2 text-red-400">{selectedTransaction.raw_data.timestamp}</div>
+    </div>
+    <div class="font-bold">Contract Age:</div>
+    
+    <div>  
+  <div class="ml-10 text-lime-400">{$contractAge.days} days {$contractAge.hours} hours {$contractAge.minutes} min {$contractAge.seconds} sec ago</div>
+</div>
+
+
+  </div>
+{/if}
+
         {/each}
       </div>
     </div>
-    <button on:click={handlePrevious} disabled={!previousPageUrl} class="p-2 bg-red-800 text-white rounded">Previous</button>
+    
     <button on:click={handleNext} disabled={!nextPageUrl} class="p-2 bg-red-800 text-white rounded">Next</button>
   {:else if transactionInfo && transactionInfo.length === 0}
     <p>No transactions found.</p>
