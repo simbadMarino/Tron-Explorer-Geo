@@ -3,6 +3,18 @@ The Tron Blockchain Explorer Lite 2.0 is a powerful, yet compact, user-friendly 
 
 This repo is mean to be an illustration of creating a custom fron-end using non-Ethereum EVM technology. The complexity of layer two's differs accross chains and technology types.  On one end, Polygon ZK-EVM and Arbitrum have near identical setups to Ethereum, while tehnology like Avalance, Tron or Polygon Proof-of-Stake take a bit of a different approach.  
 
+## Dependencies
+
+This project uses the following key dependencies:
+
+- [Svelte](https://svelte.dev/) - A compiler for building user interfaces.
+- [SvelteKit](https://kit.svelte.dev/) - A framework for building web applications of all sizes.
+- [Skeleton CSS](http://getskeleton.com/) - A dead simple, responsive boilerplate.
+- [D3](https://d3js.org/) - A JavaScript library for creating data visualizations.
+- [TronWeb](https://developers.tron.network/docs/tron-web-intro) - A full suite JavaScript library for the Tron blockchain.
+- [Express](https://expressjs.com/) - A minimal and flexible Node.js web application framework.
+
+
 ## Installation⚙️ 
 
 1. Clone the repository:
