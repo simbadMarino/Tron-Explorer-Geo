@@ -3,6 +3,7 @@
   import '@skeletonlabs/skeleton/styles/skeleton.css';
   import '../app.postcss';
   import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+  import Navigation from '$lib/Navigation/Navigation.svelte';
 </script>
 
 <style>

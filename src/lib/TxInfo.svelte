@@ -5,6 +5,7 @@
   let loading = false;
   let searchValue = '';
   let showDetails = false;
+  let clipboardMessage = '';
 
   function handleSubmit() {
     loading = true;
@@ -36,10 +37,11 @@
     const formattedData = JSON.stringify(transactionInfo, null, 2);
     navigator.clipboard.writeText(formattedData)
       .then(() => {
-        console.log('Copied to clipboard!');
+        clipboardMessage = 'Copied to clipboard!';
       })
       .catch(err => {
         console.error('Failed to copy to clipboard:', err);
+        clipboardMessage = 'Failed to copy to clipboard.';
       });
   }
 </script>
@@ -105,6 +107,7 @@
         <button on:click={copyToClipboard} class="mt-4 bg-red-800 text-cyan-200 rounded p-2">
           Copy Results to Clipboard
         </button>
+        <p>{clipboardMessage}</p>
       {/if}
     </div>
   {:else if transactionInfo && transactionInfo.length === 0}
