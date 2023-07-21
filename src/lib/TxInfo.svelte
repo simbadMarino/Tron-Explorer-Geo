@@ -31,6 +31,17 @@
       })
       .catch(err => console.error(err));
   }
+
+  function copyToClipboard() {
+    const formattedData = JSON.stringify(transactionInfo, null, 2);
+    navigator.clipboard.writeText(formattedData)
+      .then(() => {
+        console.log('Copied to clipboard!');
+      })
+      .catch(err => {
+        console.error('Failed to copy to clipboard:', err);
+      });
+  }
 </script>
 
 <div class="container mx-auto p-4 rounded shadow bg-gray-800 text-white">
@@ -91,8 +102,8 @@
         {/each}
       </div>
       {#if showDetails}
-        <button on:click={() => showDetails = false} class="mt-4 bg-red-800 text-cyan-200 rounded p-2">
-          Get More Transaction Details
+        <button on:click={copyToClipboard} class="mt-4 bg-red-800 text-cyan-200 rounded p-2">
+          Copy Results to Clipboard
         </button>
       {/if}
     </div>
