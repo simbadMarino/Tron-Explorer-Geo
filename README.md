@@ -14,6 +14,11 @@ This project uses the following key dependencies:
 - [TronWeb](https://developers.tron.network/docs/tron-web-intro) - A full suite JavaScript library for the Tron blockchain.
 - [Express](https://expressjs.com/) - A minimal and flexible Node.js web application framework.
 
+## Example Deployment
+
+```bash
+https://tron-explorer-2-2.vercel.app/
+```
 
 ## Installation⚙️ 
 
