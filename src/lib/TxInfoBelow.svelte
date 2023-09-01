@@ -75,7 +75,7 @@
 </script>
 
 <div class="w-9/12 container mx-auto p-4 rounded shadow bg-slate text-white">
-  <h2 class="text-2xl font-bold mb-4">Transaction Info</h2>
+  <h2 class="text-2xl font-bold mb-4">Extended Transaction History</h2>
 
   <div class="flex mb-4">
     <input
