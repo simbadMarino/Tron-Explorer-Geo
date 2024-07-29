@@ -13,7 +13,7 @@
 		// Simulate an asynchronous operation
 		setTimeout(() => {
 			isLoading = false; // Set loading state to false when the operation is complete
-		}, 5000); // Adjust the duration as needed
+		}, 4000); // Adjust the duration as needed
 	});
 </script>
 
@@ -21,7 +21,7 @@
 	{#if isLoading}
 		<div class="loading-screen">
 			<img src="/loading.gif" alt="Loading" />
-			<h2>Getting Client IP and Wallet Info...</h2>
+			<h2>Make sure to unlock your tronlink plugin for the test...</h2>
 		</div>
 	{:else}
 		<div class="bg-slate">
