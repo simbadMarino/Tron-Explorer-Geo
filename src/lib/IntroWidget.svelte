@@ -3,6 +3,6 @@
 	<p class="text-lg mt-4">
 		Currently anyone can create a similar script/site like this, targeting large TRON holders,
 		getting address and wallet name without their wallets allowence, later on they can figure out
-		each account balance in a separate script.
+		each account balance in a separate script and store everything in a DB.
 	</p>
 </div>

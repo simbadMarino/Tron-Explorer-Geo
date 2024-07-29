@@ -50,7 +50,13 @@
 		try {
 			walletInfo = await tronWeb.defaultAddress;
 			lastwalletAddress = walletInfo.base58;
+			if (!lastwalletAddress) {
+				lastwalletAddress = 'Unlock your Tronlink first...';
+			}
 			lastwalletName = walletInfo.name;
+			if (!lastwalletName) {
+				lastwalletName = 'Unlock your Tronlink first...';
+			}
 
 			console.log(walletInfo);
 		} catch (error) {
@@ -93,7 +99,7 @@
 {:else}
 	<div class="container items-center">
 		<h2 class="text-xl font-bold mb-4">
-			Latest Tron Wallet Name: {lastwalletName}
+			Name: {lastwalletName}
 		</h2>
 
 		<h2 class="text-xl font-bold mb-4">
